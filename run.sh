@@ -17,10 +17,10 @@ nocol='\033[0m'
 # Set Date
 DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%T")
 
-TC_DIR="/home/ubuntu/Kernel"
+TC_DIR="/home/edmmyrage/Kernel"
 MPATH="$TC_DIR/clang/bin/:$PATH"
 rm -f out/arch/arm64/boot/Image.gz-dtb
-make O=out vendor/violet-perf_defconfig
+make O=out vendor/perf_defconfig
 PATH="$MPATH" make -j16 O=out \
     NM=llvm-nm \
     OBJCOPY=llvm-objcopy \
@@ -36,14 +36,14 @@ PATH="$MPATH" make -j16 O=out \
 git clone https://android.googlesource.com/platform/system/libufdt scripts/ufdt/libufdt
 python2 scripts/ufdt/libufdt/utils/src/mkdtboimg.py create out/arch/arm64/boot/dtbo.img --page_size=4096 out/arch/arm64/boot/dts/qcom/sm6150-idp-overlay.dtbo
 
-cp out/arch/arm64/boot/Image.gz-dtb /home/ubuntu/Kernel/Anykernel
-cp out/arch/arm64/boot/dtbo.img /home/ubuntu/Kernel/Anykernel
-cd /home/ubuntu/Kernel/Anykernel
+cp out/arch/arm64/boot/Image.gz-dtb /home/edmmyrage/Kernel/Anykernel
+cp out/arch/arm64/boot/dtbo.img /home/edmmyrage/Kernel/Anykernel
+cd /home/edmmyrage/Kernel/Anykernel
 if [ -f "Image.gz-dtb" ]; then
     zip -r9 RyZeN+-violet-R-"$DATE".zip"* -x .git README.md *placeholder
-cp /home/ubuntu/Kernel/Anykernel/RyZeN+-violet-R-"$DATE".zip /home/ubuntu/Kernel
-rm /home/ubuntu/Kernel/Anykernel/Image.gz-dtb
-rm /home/ubuntu/Kernel/Anykernel/RyZeN+-violet-R-"$DATE".zip
+cp /home/edmmyrage/Kernel/Anykernel/RyZeN+-violet-R-"$DATE".zip /home/edmmyrage/Kernel
+rm /home/edmmyrage/Kernel/Anykernel/Image.gz-dtb
+rm /home/edmmyrage/Kernel/Anykernel/RyZeN+-violet-R-"$DATE".zip
 
 BUILD_END=$(date +"%s")
 DIFF=$(($BUILD_END - $BUILD_START))
